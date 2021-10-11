@@ -8,24 +8,35 @@ def setIconPage():
         layout = 'wide'
     )
 
+def HideStreamlitContent():
+    
+    hide_st_style = """
+                <style>
+                #MainMenu {visibility: hidden;}
+                footer {visibility: hidden;}
+                header {visibility: hidden;}
+                </style>
+                """
+    st.markdown(hide_st_style, unsafe_allow_html=True)
+
 def data():
     col1, col2, col3 = st.columns(3)
     arrivalHours = col1.number_input("Heure d'arriver :",8,14,step=1)
     arrivalMin = col1.number_input("minutes d'arriver :",0,60,step=1)
     startDejHours = col2.number_input("Heure du déjeuner :",11,14,step=1)
     startDejMin = col2.number_input("minutes du déjeuner :",0,60,step=1)
-    EndDejHours = col3.number_input("Heure fin de déjeuner :",11,14,step=1)
+    EndDejHours = col3.number_input("Heure fin de déjeuner :",12,14,step=1)
     EndDejMin = col3.number_input("Minutes fin de déjeuner :",0,60,step=1)
 
     FMT = '%H:%M'
 
-    arrival = str(arrivalHours)+":"+str(arrivalMin)
+    arrival = str(int(arrivalHours))+":"+str(int(arrivalMin))
     arrival = datetime.strptime(arrival, FMT)
 
-    startDej = str(startDejHours)+":"+str(startDejMin)
+    startDej = str(int(startDejHours))+":"+str(int(startDejMin))
     startDej = datetime.strptime(startDej, FMT)
 
-    EndDej = str(EndDejHours)+":"+str(EndDejMin)
+    EndDej = str(int(EndDejHours))+":"+str(int(EndDejMin))
     EndDej = datetime.strptime(EndDej, FMT)
 
         
@@ -36,8 +47,10 @@ def data():
     timeToFinish = datetime.strptime("7:36", FMT) - morning
 
     st.subheader("Heure restante l'après-midi : "+str(timeToFinish)[11:])
-    hoursToAdd = str(timeToFinish)[:4]
+
+    hoursToAdd = str(timeToFinish)[11:13]
     minutesToAdd = str(timeToFinish)[14:16]
+
     hourToFinish = EndDej + timedelta(hours=int(hoursToAdd))
     hourToFinish = hourToFinish + timedelta(minutes=int(minutesToAdd))
 
@@ -46,6 +59,7 @@ def data():
 
 def main():
     setIconPage()
+    HideStreamlitContent()
     data()
 
 if __name__ == "__main__":
