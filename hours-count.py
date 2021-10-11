@@ -17,33 +17,31 @@ def data():
     EndDejHours = col3.number_input("Heure fin de déjeuner :",11,14,step=1)
     EndDejMin = col3.number_input("Minutes fin de déjeuner :",0,60,step=1)
 
-    button = st.button("Calculer")
     FMT = '%H:%M'
 
-    if button :
-        arrival = str(arrivalHours)+":"+str(arrivalMin)
-        arrival = datetime.strptime(arrival, FMT)
+    arrival = str(arrivalHours)+":"+str(arrivalMin)
+    arrival = datetime.strptime(arrival, FMT)
 
-        startDej = str(startDejHours)+":"+str(startDejMin)
-        startDej = datetime.strptime(startDej, FMT)
+    startDej = str(startDejHours)+":"+str(startDejMin)
+    startDej = datetime.strptime(startDej, FMT)
 
-        EndDej = str(EndDejHours)+":"+str(EndDejMin)
-        EndDej = datetime.strptime(EndDej, FMT)
+    EndDej = str(EndDejHours)+":"+str(EndDejMin)
+    EndDej = datetime.strptime(EndDej, FMT)
 
         
-        morning = startDej - arrival
+    morning = startDej - arrival
 
-        st.subheader("Temps le matin : "+str(morning))
+    st.subheader("Temps le matin : "+str(morning))
 
-        timeToFinish = datetime.strptime("7:36", FMT) - morning
+    timeToFinish = datetime.strptime("7:36", FMT) - morning
 
-        st.subheader("Heure restante l'après-midi : "+str(timeToFinish)[11:])
-        hoursToAdd = str(timeToFinish)[:4]
-        minutesToAdd = str(timeToFinish)[14:16]
-        hourToFinish = EndDej + timedelta(hours=int(hoursToAdd))
-        hourToFinish = hourToFinish + timedelta(minutes=int(minutesToAdd))
+    st.subheader("Heure restante l'après-midi : "+str(timeToFinish)[11:])
+    hoursToAdd = str(timeToFinish)[:4]
+    minutesToAdd = str(timeToFinish)[14:16]
+    hourToFinish = EndDej + timedelta(hours=int(hoursToAdd))
+    hourToFinish = hourToFinish + timedelta(minutes=int(minutesToAdd))
 
-        st.subheader("Heure de sortie minimum : "+str(hourToFinish)[11:])
+    st.subheader("Heure de sortie minimum : "+str(hourToFinish)[11:])
 
 
 def main():
